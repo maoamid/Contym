@@ -51,9 +51,8 @@ gaming_pkgs="lutris python-protobuf steam steam-native-runtime steamtinkerlaunch
 	libretro-parallel-n64 libretro-pcsx2 libretro-picodrive libretro-ppsspp \
 	libretro-retrodream libretro-yabause pcsx2-avx-git"
 
-extra_pkgs="nano ttf-dejavu ttf-liberation firefox mpv geany pcmanfm \
-	htop qbittorrent speedcrunch gpicview file-roller openbox lxterminal \
-	yt-dlp minizip nautilus genymotion jre17-openjdk"
+extra_pkgs="nano ttf-dejavu ttf-liberation firefox \
+	yt-dlp jre17-openjdk"
 
 # Packages to install
 # You can add packages that you want and remove packages that you don't need
@@ -62,7 +61,8 @@ extra_pkgs="nano ttf-dejavu ttf-liberation firefox mpv geany pcmanfm \
 export packagelist="${audio_pkgs} ${core_pkgs} ${video_pkgs} ${wine_pkgs} ${devel_pkgs} ${gaming_pkgs} ${extra_pkgs}"
 
 # If you want to install AUR packages, specify them in this variable
-export aur_packagelist="faugus-launcher-git"
+# export aur_packagelist="faugus-launcher-git"
+export aur_packagelist=""
 
 # ALHP is a repository containing packages from the official Arch Linux
 # repos recompiled with -O3, LTO and optimizations for modern CPUs for
@@ -394,6 +394,11 @@ if [ -n "${aur_packagelist}" ]; then
 	mv "${bootstrap}"/home/aur/bad_aur_pkglist.txt "${bootstrap}"/opt
 	rm -rf "${bootstrap}"/home/aur
 fi
+
+# RusDesk
+run_in_chroot wget https://github.com/rustdesk/rustdesk/releases/download/1.3.7/rustdesk-1.3.7-0-x86_64.pkg.tar.zst
+run_in_chroot pacman -U ./rustdesk-1.3.7-0-x86_64.pkg.tar.zst
+run_in_chroot rm rustdesk-1.3.7-0-x86_64.pkg.tar.zst
 
 run_in_chroot locale-gen
 
